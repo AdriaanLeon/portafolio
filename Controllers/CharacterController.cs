@@ -1,15 +1,16 @@
-using Microsoft.AspNetCore.Mvc;
-using WebApi.Models;
+using System;
 using System.Collections.Generic;
-using Microsoft.Extensions.Logging;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using WebApi.Models;
 
 namespace WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [AllowAnonymous]
     public class CharacterController: ControllerBase
     {
         private static List<Character> characters = new List<Character>
@@ -27,6 +28,12 @@ namespace WebApi.Controllers
         public IActionResult GetSingle(int id)
         {
             return Ok(characters.FirstOrDefault(c => c.Id == id));
+        }
+        [HttpPost]
+        public IActionResult AddCharacter(Character newCharacter)
+        {
+            characters.Add(newCharacter);
+            return Ok(characters);
         }
     }
 }
