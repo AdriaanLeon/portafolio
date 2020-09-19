@@ -1,4 +1,4 @@
-//This commentary by julio
+//Changed by Adrian
 namespace WebApi.Models
 {
     public class Character
