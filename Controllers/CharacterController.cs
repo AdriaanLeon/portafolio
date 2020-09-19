@@ -3,11 +3,13 @@ using WebApi.Models;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [AllowAnonymous]
     public class CharacterController: ControllerBase
     {
         private static List<Character> characters = new List<Character>
