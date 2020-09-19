@@ -1,3 +1,4 @@
+//This commentary by julio
 namespace WebApi.Models
 {
     public class Character
