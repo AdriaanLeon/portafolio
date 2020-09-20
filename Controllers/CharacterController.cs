@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WebApi.Dtos.Character;
 using WebApi.Models;
+using WebApi.Services.CharacterServices;
 
 namespace WebApi.Controllers
 {
@@ -13,27 +15,25 @@ namespace WebApi.Controllers
     [Route("[controller]")]
     public class CharacterController: ControllerBase
     {
-        private static List<Character> characters = new List<Character>
+        private readonly ICharacterServices _characterServices;
+        public CharacterController(ICharacterServices characterServices)
         {
-            new Character(),
-            new Character {Id = 1, Name = "Sam"}
-        };
-
+            _characterServices = characterServices;
+        }
         [HttpGet("GetAll")]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(characters);
+            return Ok(await _characterServices.GetAllCharacters());
         }
         [HttpGet("{id}")]
-        public IActionResult GetSingle(int id)
+        public async Task<IActionResult> GetSingle(int id)
         {
-            return Ok(characters.FirstOrDefault(c => c.Id == id));
+            return Ok(await _characterServices.GetCharacterById(id));
         }
         [HttpPost]
-        public IActionResult AddCharacter(Character newCharacter)
+        public async Task<IActionResult> AddCharacter(AddCharacterDto newCharacter)
         {
-            characters.Add(newCharacter);
-            return Ok(characters);
+            return Ok(await _characterServices.AddCharacter(newCharacter));
         }
     }
 }
