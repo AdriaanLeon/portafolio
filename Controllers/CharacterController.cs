@@ -26,7 +26,7 @@ namespace WebApi.Controllers
             return Ok(model);
         }
         [HttpGet("{id}")]
-        public IActionResult GetSingle(int id)
+        public IActionResult GetSingle(int id)zzz
         {
             var model = characters.FirstOrDefault(c => c.Id == id);
             if (model == null) return NotFound();
