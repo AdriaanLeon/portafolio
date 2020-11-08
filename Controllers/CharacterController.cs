@@ -21,12 +21,16 @@ namespace WebApi.Controllers
         [HttpGet("GetAll")]
         public IActionResult Get()
         {
-            return Ok(characters);
+            var model = characters;
+            if (model == null) return NotFound();
+            return Ok(model);
         }
         [HttpGet("{id}")]
         public IActionResult GetSingle(int id)
         {
-            return Ok(characters.FirstOrDefault(c => c.Id == id));
+            var model = characters.FirstOrDefault(c => c.Id == id);
+            if (model == null) return NotFound();
+            return Ok(model);
         }
     }
 }
